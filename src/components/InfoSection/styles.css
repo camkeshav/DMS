@@ -1,0 +1,46 @@
+.user-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .user-input {
+    width: 70%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .user-submit {
+    width: 20%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .user-submit {
+    transition: background-color 0.3s ease-in-out;
+}
+
+.user-submit:active {
+    background-color: #3498db;
+}
+
+.role{
+    margin-top: 2%;
+font-size: larger;
+}
+
+.radio2{
+font-size: large;
+margin-left: 3%;
+}
+
+.TextWrapper {
+    background-color: transparent;
+}

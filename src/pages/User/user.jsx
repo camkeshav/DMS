@@ -3,7 +3,7 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import { Card, List } from 'antd';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
+// import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import Stack from '@mui/material/Stack';
 import axios from 'axios';
 import Table from '@mui/material/Table';
@@ -38,10 +38,11 @@ function User() {
 
     function handleSubmit(event) {
         event.preventDefault()
-        const url = 'https://api-generator.retool.com/d8n2FQ/data';
+        const url = 'http://172.22.24.193/upload';
         const formData = new FormData();
-        formData.append('fullName', file);
-        formData.append('B', file.name);
+        formData.append('doc', file);
+        formData.append('name', file.name);
+        formData.append('userid', localStorage.getItem('Name'));
         const config = {
             headers: {
                 'content-type': 'multipart/form-data',
@@ -55,8 +56,14 @@ function User() {
     }
 
     const fetchDocsforID = async () => {
+        const heads = {
+            headers: {
+                'mode': 'no-cors',
+                'Access-Control-Allow_origin': '*',
+            }
+        }
         try {
-            const response = await axios.get("https://jsonplaceholder.typicode.com/users")
+            const response = await axios.get(`http://172.22.24.193/alldocs/${localStorage.getItem('Name')}`, heads);
             setDocs(response.data)
         } catch (error) {
             console.error(error);
@@ -66,6 +73,9 @@ function User() {
     useEffect(() => {
         fetchDocsforID();
     }, []);
+
+
+    
 
     return (
 
@@ -96,13 +106,13 @@ function User() {
                             <TableRow
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                             >
-                                <TableCell align="center">{doc.docname}</TableCell>
-                                <TableCell align="center">{doc.username}</TableCell>
+                                <TableCell align="center">{doc.name}</TableCell>
+                                <TableCell align="center">{doc.status}</TableCell>
                                 <TableCell align="center">
                                     <Link to={{
                                         pathname: "/frame",
                                         state: {
-                                            dname: doc.username,
+                                            dname: doc.name,
                                             hash: doc.hash,
                                         },
                                     }} underline="hover"
